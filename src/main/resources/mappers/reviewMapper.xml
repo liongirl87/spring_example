@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.ex.lesson03.DAO.ReviewMapper">
+ 
+ 	<select id="selecttReview" parameterType = "int" resultType="com.ex.lesson03.model.Review">
+ 		SELECT 
+ 			`city_id`
+			,`city`
+			,`country_id`
+			,`last_update`
+		FROM `city`
+		WHERE
+			`city_id` = #{id}
+			
+ 	
+ 	</select>
+ 	
+ 	<insert id="insertReview" parameterType="com.ex.lesson03.model.ReviewReal">
+ 		INSERT INTO `new_review`
+		(
+			`storeId`
+			, `menu`
+			, `userName`
+			, `point`
+			, `review`
+			, `createdAt`
+			, `updatedAt`
+		)
+		VALUES
+		(
+			#{storeId}
+			, #{menu}
+			, #{userName}
+			, #{point}
+			, #{review}
+			, NOW()
+			, NOW()
+		)
+ 	
+ 	
+ 	</insert>
+ 	<insert id="insertReviewAsField" parameterType="map">
+ 	INSERT INTO `new_review`
+		(
+			`storeId`
+			, `menu`
+			, `userName`
+			, `point`
+			, `review`
+			, `createdAt`
+			, `updatedAt`
+		)
+		VALUES
+		(
+		<!--  map의 키와 일치시킨다! -->
+			#{storeId}
+			, #{menu}
+			, #{userName}
+			, #{point}
+			, #{review}
+			, NOW()
+			, NOW()
+		)
+ 	
+ 	
+ 	</insert>
+ 	
+ 	<update id="updateReviewById" parameterType="map">
+ 		UPDATE `new_review`
+ 		SET
+ 			`review` = #{review}
+ 			,`updatedAt` = NOW()
+ 		WHERE
+ 			`id` = #{id}
+ 	
+ 	</update>
+ 	
+ 	<delete id="deleteReviewById" parameterType="int">
+ 		DELETE
+ 		FROM
+ 			`new_review`
+ 		WHERE
+ 			`id` = #{id}
+ 	
+ 	</delete>
+ 
+ 
+ </mapper>

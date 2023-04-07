@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.ex.lesson04.DAO.UserMapper">
+ 
+ 	<insert id="AddUser" parameterType="map">
+ 		INSERT INTO `user`
+ 			(
+				`name`
+				,`yyyymmdd`
+				,`introduce`
+				,`email`
+				,`createdAt`
+				,`updatedAt`
+ 			)
+ 			VALUES
+ 			(
+	 			#{name}
+	 			,#{yyyymmdd}
+	 			,#{introduce}
+	 			,#{email}
+	 			,NOW()
+	 			,NOW()
+ 			)
+ 						
+ 	</insert>
+ 	
+ 	<select id = "selectLatestUser" resultType="com.ex.lesson04.model.User">
+ 		SELECT 
+ 				`id`
+ 				,`name`
+				,`yyyymmdd`
+				,`introduce`
+				,`email`
+				,`createdAt`
+				,`updatedAt`
+		FROM
+			`user`
+		ORDER BY `id` DESC
+		LIMIT 1
+ 	</select>
+ 	
+ 	<select id ="existUserByName" parameterType="string" resultType="boolean">
+ 		SELECT
+ 			COUNT(*)
+ 		FROM
+ 			`user`
+ 		WHERE
+ 			`name` = #{name}
+ 	</select>
+ 
+ </mapper>
